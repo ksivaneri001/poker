@@ -111,7 +111,7 @@ public class Poker {
 
         for (String suit : SUITS) {
             for (String rank : RANKS) {
-                deck.add(new Card(rank, suit));     // adds 52 cards to the deck (13 ranks, 4 suits)
+                deck.add(new Card(rank, suit));
             }
         }
 

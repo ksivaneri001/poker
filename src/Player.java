@@ -39,4 +39,9 @@ public class Player {
             return Card.getOrderedRank(a.getRank()) - Card.getOrderedRank(b.getRank());
         });
     }
+
+    public int evaluateHand() {
+        if (Evaluate.royalFlush(hand)) return 100;
+        else return -1;
+    }
 }
