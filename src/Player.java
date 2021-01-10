@@ -42,6 +42,14 @@ public class Player {
 
     public int evaluateHand() {
         if (Evaluate.royalFlush(hand)) return 100;
-        else return -1;
+        else if (Evaluate.straightFlush(hand)) return 50;
+        else if (Evaluate.fourOfAKind(hand)) return 25;
+        else if (Evaluate.fullHouse(hand)) return 15;
+        else if (Evaluate.flush(hand)) return 10;
+        else if (Evaluate.straight(hand)) return 5;
+        else if (Evaluate.threeOfAKind(hand)) return 3;
+        else if (Evaluate.twoPair(hand)) return 2;
+        else if (Evaluate.pairOfJacksOrBetter(hand)) return 1;
+        else return 0;
     }
 }

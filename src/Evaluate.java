@@ -83,6 +83,32 @@ public class Evaluate {
     }
 
     public static boolean twoPair(List<Card> hand) {
-        
+        int pairCount = 0;
+        String lastPairRank = "";
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i).getRank().matches(hand.get(i - 1).getRank())) {
+                pairCount++;
+                lastPairRank = hand.get(i).getRank();
+                break;
+            }
+        }
+        if (pairCount == 1) {
+            for (int i = 1; i < hand.size(); i++) {
+                if (hand.get(i).getRank().matches(hand.get(i - 1).getRank()) && !hand.get(i).getRank().matches(lastPairRank)) {
+                    pairCount++;
+                    break;
+                }
+            }
+        }
+        return (pairCount == 2);
+    }
+
+    public static boolean pairOfJacksOrBetter(List<Card> hand) {
+        for (int i = 1; i < hand.size(); i++) {
+            if (hand.get(i).getRank().matches(hand.get(i - 1).getRank()) && Card.getOrderedRank(hand.get(i).getRank()) >= 11) {
+                return true;
+            }
+        }
+        return false;
     }
 }
