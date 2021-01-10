@@ -30,6 +30,16 @@ public class Player {
         hand.set(index, card);
     }
 
+    public void clearHand() {
+        while (hand.size() > 0) {
+            hand.remove(0);
+        }
+    }
+
+    public void addChips(int addend) {
+        chips += addend;
+    }
+
     public void sortHand() {
         hand.sort((a, b) -> {
             if (Card.getOrderedRank(a.getRank()) == Card.getOrderedRank(b.getRank())) {

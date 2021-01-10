@@ -26,15 +26,14 @@ public class Poker {
             }
             player.sortHand();
 
-            System.out.print("\nYour hand: [");
-            for (int i = 0; i < player.getHand().size() - 1; i++) {
-                System.out.print(player.getHand().get(i).toString() + ", ");
-            }
-            System.out.println(player.getHand().get(player.getHand().size() - 1).toString() + "]");
+            System.out.print("\nYour hand: ");
+            System.out.println(player.getHand());
 
             takeTurn();
 
-            break;
+            player.clearHand();
+
+            System.out.println("\nNext Turn\n");
         }
     }
 
@@ -84,6 +83,10 @@ public class Poker {
             in.nextLine();
         }
 
+        for (int i : indexes) {
+            System.out.println(i);
+        }
+
         for (int i = 0; i < cardsToTrade; i++) {
             player.setCard(indexes[i] - 1, new Card("X", "X"));
             player.deal(deck.get(0));
@@ -92,18 +95,19 @@ public class Poker {
         for (int i = 0; i < player.getHand().size(); i++) {
             if (player.getHand().get(i).getRank().matches("X")) {
                 player.removeCard(i);
-                i = 0;
+                i = -1;
             }
         }
+
         player.sortHand();
 
         if (cardsToTrade > 0) {
-            System.out.print("\nYour new hand: [");
-            for (int i = 0; i < player.getHand().size() - 1; i++) {
-                System.out.print(player.getHand().get(i).toString() + ", ");
-            }
-            System.out.println(player.getHand().get(player.getHand().size() - 1).toString() + "]");
+            System.out.print("\nYour new hand: ");
+            System.out.println(player.getHand());
         }
+
+//        int payOutMultiplier = player.evaluateHand();
+//        System.out.println(payOutMultiplier);
     }
 
     public void shuffle() {

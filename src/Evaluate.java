@@ -30,23 +30,20 @@ public class Evaluate {
 
     public static boolean fullHouse(List<Card> hand) {
         int count = 0;
-        int maxCount = 0;
         for (int i = 1; i < 3; i++) {
             if (count == 1 && !hand.get(i).getRank().matches(hand.get(i - 1).getRank())) break;
             else if (hand.get(i).getRank().matches(hand.get(i - 1).getRank())) count++;
             else count = 0;
-            if (count > maxCount) maxCount = count;
         }
-        if (maxCount == 1) {
-            maxCount = 0;
+        if (count == 1) {
+            count = 0;
             for (int i = 3; i < hand.size(); i++) {
                 if (hand.get(i).getRank().matches(hand.get(i - 1).getRank())) count++;
                 else count = 0;
-                if (count > maxCount) maxCount = count;
             }
-            return (maxCount == 1);
+            return (count == 2);
         }
-        else if (maxCount == 2) {
+        else if (count == 2) {
             if (hand.get(4).getRank().matches(hand.get(3).getRank())) return true;
         }
         return false;
@@ -60,7 +57,7 @@ public class Evaluate {
             else count = 0;
             if (count > maxCount) maxCount = count;
         }
-        return (maxCount == 3);
+        return (maxCount == 4);
     }
 
     public static boolean straight(List<Card> hand) {
