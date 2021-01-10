@@ -20,10 +20,17 @@ public class Player {
 
     public void deal(Card card) {
         hand.add(card);
-        sortHand();
     }
 
-    private void sortHand() {
+    public void removeCard(int index) {
+        hand.remove(index);
+    }
+
+    public void setCard(int index, Card card) {
+        hand.set(index, card);
+    }
+
+    public void sortHand() {
         hand.sort((a, b) -> {
             if (Card.getOrderedRank(a.getRank()) == Card.getOrderedRank(b.getRank())) {
                 return Card.getOrderedSuit(a.getSuit()) - Card.getOrderedSuit(b.getSuit());
