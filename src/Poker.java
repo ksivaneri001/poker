@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +18,7 @@ public class Poker {
     public void game() {
         shuffle();
 
-        while (true) {
+        while (deck.size() >= 8) {
             for (int i = 0; i < 5; i++) {
                 player.deal(deck.get(0));
                 deck.remove(0);
@@ -106,20 +105,116 @@ public class Poker {
             System.out.println(player.getHand());
         }
 
-//        int payOutMultiplier = player.evaluateHand();
-//        System.out.println(payOutMultiplier);
+        int payOutMultiplier = player.evaluateHand();
+        System.out.println(payOutMultiplier);
     }
 
     public void shuffle() {
         deck = new ArrayList<>(52);
 
-        for (String suit : SUITS) {
-            for (String rank : RANKS) {
-                deck.add(new Card(rank, suit));
-            }
-        }
+//        for (String suit : SUITS) {
+//            for (String rank : RANKS) {
+//                deck.add(new Card(rank, suit));
+//            }
+//        }
 
-        Collections.shuffle(deck);
+        deck.add(new Card("T", "C")); // Royal Flush
+        deck.add(new Card("J", "C"));
+        deck.add(new Card("Q", "C"));
+        deck.add(new Card("K", "C"));
+        deck.add(new Card("A", "C"));
+
+        deck.add(new Card("3", "C")); // Straight Flush
+        deck.add(new Card("4", "C"));
+        deck.add(new Card("5", "C"));
+        deck.add(new Card("6", "C"));
+        deck.add(new Card("7", "C"));
+
+        deck.add(new Card("7", "C")); // Four of a Kind
+        deck.add(new Card("7", "S"));
+        deck.add(new Card("7", "D"));
+        deck.add(new Card("7", "H"));
+        deck.add(new Card("A", "C"));
+
+        deck.add(new Card("A", "C"));
+        deck.add(new Card("7", "S"));
+        deck.add(new Card("7", "D"));
+        deck.add(new Card("7", "H"));
+        deck.add(new Card("7", "C"));
+
+        deck.add(new Card("A", "C")); // Full House
+        deck.add(new Card("A", "S"));
+        deck.add(new Card("3", "D"));
+        deck.add(new Card("3", "H"));
+        deck.add(new Card("3", "C"));
+
+        deck.add(new Card("T", "C"));
+        deck.add(new Card("T", "S"));
+        deck.add(new Card("T", "D"));
+        deck.add(new Card("8", "H"));
+        deck.add(new Card("8", "C"));
+
+        deck.add(new Card("A", "D")); // Flush
+        deck.add(new Card("7", "D"));
+        deck.add(new Card("8", "D"));
+        deck.add(new Card("2", "D"));
+        deck.add(new Card("J", "D"));
+
+        deck.add(new Card("2", "C")); // Straight
+        deck.add(new Card("3", "S"));
+        deck.add(new Card("4", "D"));
+        deck.add(new Card("5", "H"));
+        deck.add(new Card("6", "C"));
+
+        deck.add(new Card("A", "C")); // Three of a Kind
+        deck.add(new Card("A", "S"));
+        deck.add(new Card("A", "D"));
+        deck.add(new Card("7", "H"));
+        deck.add(new Card("6", "C"));
+
+        deck.add(new Card("7", "C"));
+        deck.add(new Card("A", "S"));
+        deck.add(new Card("A", "D"));
+        deck.add(new Card("A", "H"));
+        deck.add(new Card("6", "C"));
+
+        deck.add(new Card("7", "C"));
+        deck.add(new Card("T", "S"));
+        deck.add(new Card("A", "D"));
+        deck.add(new Card("A", "H"));
+        deck.add(new Card("A", "C"));
+
+        deck.add(new Card("6", "C")); // Two Pair
+        deck.add(new Card("5", "S"));
+        deck.add(new Card("5", "D"));
+        deck.add(new Card("7", "H"));
+        deck.add(new Card("7", "C"));
+
+        deck.add(new Card("1", "C"));
+        deck.add(new Card("1", "S"));
+        deck.add(new Card("2", "D"));
+        deck.add(new Card("3", "H"));
+        deck.add(new Card("3", "C"));
+
+        deck.add(new Card("4", "C"));
+        deck.add(new Card("4", "S"));
+        deck.add(new Card("7", "D"));
+        deck.add(new Card("A", "H"));
+        deck.add(new Card("A", "C"));
+
+        deck.add(new Card("J", "C"));
+        deck.add(new Card("7", "S"));
+        deck.add(new Card("J", "D"));
+        deck.add(new Card("6", "H"));
+        deck.add(new Card("2", "C"));
+
+        deck.add(new Card("A", "C")); // Nothing
+        deck.add(new Card("7", "S"));
+        deck.add(new Card("3", "D"));
+        deck.add(new Card("2", "H"));
+        deck.add(new Card("9", "C"));
+
+//        Collections.shuffle(deck);
     }
 
     public static void main(String[] args) {
