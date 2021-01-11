@@ -33,7 +33,7 @@ public class Poker {
         in.nextLine();
         player.addChips(chipsToBuy);
 
-        while (deck.size() >= 8) {
+        while (deck.size() >= 8 && player.getChips() > 0) {
             for (int i = 0; i < 5; i++) {
                 player.deal(deck.get(0));
                 deck.remove(0);
@@ -47,6 +47,8 @@ public class Poker {
             System.out.println("#### -NEXT HAND- ####");
             System.out.println("#####################");
         }
+
+        endGame();
     }
 
     public void takeTurn() {
@@ -180,6 +182,25 @@ public class Poker {
         }
 
         Collections.shuffle(deck);
+    }
+
+    public void endGame() {
+        String endMessage = (player.getChips() == 0) ? "\nYou lost all your chips. Looks like you can't play anymore." : "\nThe deck is empty! The game has ended.";
+        System.out.println(endMessage);
+
+        player.clearHand();
+        String playAgain = "";
+        do {
+            System.out.println("\nPlay Again? (Yes or No)");
+            playAgain = in.nextLine().toLowerCase();
+        } while (!playAgain.equals("yes") && !playAgain.equals("no"));
+        if (playAgain.equals("yes")) {
+            System.out.println("\nReshuffling Deck...");
+            game();
+        }
+        else {
+            in.close();
+        }
     }
 
     public static void main(String[] args) {
