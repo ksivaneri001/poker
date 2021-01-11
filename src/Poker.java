@@ -206,6 +206,12 @@ public class Poker {
     }
 
     public static void main(String[] args) {
+        System.out.println("\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
+        System.out.println("\u2588\u2588    \u2588\u2588");
+        System.out.println("\u2588\u2588\u2588\u2588\u2588\u2588\u2588");
+        System.out.println("\u2588\u2588");
+        System.out.println("\u2588\u2588 O K E R");
+        System.out.println("A faithful recreation of video poker. Put your skills (and your luck) to the test!");
         new Poker().game();
     }
 }
