@@ -19,6 +19,20 @@ public class Poker {
     public void game() {
         shuffle();
 
+        short chipsToBuy = 0;
+        do {
+            System.out.println("\nYou have " + player.getChips() + " chip(s). How many chips would you like to buy? (Must be greater than 0 but no more than 32,767)");
+            try {
+                chipsToBuy = in.nextShort();
+            }
+            catch (Exception e) {
+                chipsToBuy = 0;
+                in.next();
+            }
+        } while (chipsToBuy <= 0);
+        in.nextLine();
+        player.addChips(chipsToBuy);
+
         while (deck.size() >= 8) {
             for (int i = 0; i < 5; i++) {
                 player.deal(deck.get(0));
@@ -26,18 +40,36 @@ public class Poker {
             }
             player.sortHand();
 
-            System.out.print("\nYour hand: ");
-            System.out.println(player.getHand());
-
             takeTurn();
 
             player.clearHand();
-
-            System.out.println("\nNext Turn\n");
+            System.out.println("\n#####################");
+            System.out.println("#### -NEXT HAND- ####");
+            System.out.println("#####################");
         }
     }
 
     public void takeTurn() {
+        int wager = 0;
+        do {
+            System.out.println("\nYou currently have " + player.getChips() + " chip(s). How many will you wager? (Must wager at least 1, up to 25 chips)");
+            try {
+                wager = in.nextInt();
+            }
+            catch (Exception e) {
+                wager = 0;
+                in.next();
+            }
+            if (wager > player.getChips()) {
+                System.out.println("You don't have that many chips.");
+            }
+        } while (wager <= 0 || wager > player.getChips() || wager > 25);
+        in.nextLine();
+        player.addChips(-1 * wager);
+
+        System.out.print("\nYour hand: ");
+        System.out.println(player.getHand());
+
         int cardsToTrade = -1;
         do {
             System.out.println("\nHow many cards would you like to trade? (Any number from 0 - 3)");
@@ -76,15 +108,11 @@ public class Poker {
                     }
                     if (indexPlusOne > 0 && indexPlusOne <= player.getHand().size()) {
                         indexes[i] = indexPlusOne;
-                        System.out.println("Removed " + player.getHand().get(indexPlusOne - 1).toString());
+                        System.out.println("Removed " + player.getHand().get(indexPlusOne - 1).toString() + ".");
                     }
                 }
             } while (indexPlusOne <= 0 || indexPlusOne > player.getHand().size());
             in.nextLine();
-        }
-
-        for (int i : indexes) {
-            System.out.println(i);
         }
 
         for (int i = 0; i < cardsToTrade; i++) {
@@ -107,7 +135,39 @@ public class Poker {
         }
 
         int payOutMultiplier = player.evaluateHand();
-        System.out.println(payOutMultiplier);
+        switch (payOutMultiplier) {
+            case 100:
+                System.out.println("\nThat's a Royal Flush! It's your lucky day! You win 100 times your original wager!");
+                break;
+            case 50:
+                System.out.println("\nA Straight Flush! You win 50 times your original wager.");
+                break;
+            case 25:
+                System.out.println("\nA Four of a Kind! You win 25 times your original wager.");
+                break;
+            case 15:
+                System.out.println("\nA Full House! You win 15 times your original wager.");
+                break;
+            case 10:
+                System.out.println("\nA Flush! You win 10 times your original wager.");
+                break;
+            case 5:
+                System.out.println("\nA Straight. You win 5 times your original wager.");
+                break;
+            case 3:
+                System.out.println("\nA Three of a Kind. You win 3 times your original wager.");
+                break;
+            case 2:
+                System.out.println("\nA Two Pair. You win 2 times your original wager.");
+                break;
+            case 1:
+                System.out.println("\nA Pair of Jacks or Greater. You break even.");
+                break;
+            case 0:
+                System.out.println("\nLooks like you got a bad hand there... No money for you.");
+                break;
+        }
+        player.addChips(payOutMultiplier * wager);
     }
 
     public void shuffle() {
