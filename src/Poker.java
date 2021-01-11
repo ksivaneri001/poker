@@ -188,6 +188,8 @@ public class Poker {
         String endMessage = (player.getChips() == 0) ? "\nYou lost all your chips. Looks like you can't play anymore." : "\nThe deck is empty! The game has ended.";
         System.out.println(endMessage);
 
+        System.out.println("\nYou ended with " + player.getChips() + " chips.");
+
         player.clearHand();
         String playAgain = "";
         do {
